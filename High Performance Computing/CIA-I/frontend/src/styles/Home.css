@@ -70,3 +70,79 @@ html, body {
     margin: 0;
 }
 
+.british-museum-search-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    padding: 20px;
+    background-color: #0C090A;
+    color: #E4DB49;
+}
+
+.left-side-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.algorithm-title {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 40%;
+    max-height: 70vh;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+
+.right-side-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.image-container {
+    max-width: 100%;
+    height: auto;
+    font-family: "Josefin Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 350;
+    font-style: normal;
+    color: #C60C30;
+}
+
+input[type="number"],
+input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #46B751;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto;
+    align-self: center;
+}
+
+button:hover {
+    background-color: #4D8C69;
+}
