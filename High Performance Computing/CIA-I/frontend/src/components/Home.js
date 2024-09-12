@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import '../styles/Home.css';
 
 const SplashScreen = ({ onAnimationEnd, className }) => {
@@ -16,11 +16,8 @@ const MainScreen = () => {
     const [edgesInput, setEdgesInput] = useState([]);
     const [initialVertex, setInitialVertex] = useState('');
     const [terminalVertex, setTerminalVertex] = useState('');
-    const [imageSrc, setImageSrc] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [algorithmName] = useState('british_museum_search');
-    const leftLink = "/blind-algorithm-list";
-    const rightLink = "/depth-first-search";
 
     const handleEdgesChange = (e) => {
         const edges = e.target.value;
@@ -78,15 +75,8 @@ const MainScreen = () => {
             }
 
             const data = await response.json();
-        if (data.image_base64) {
-            setImageSrc(`data:image/png;base64,${data.image_base64}`);
-            setErrorMessage('');
-        } else {
-            setImageSrc('');
-            setErrorMessage('Failed to retrieve image');
-        }
+            // Handle response data as needed
         } catch (error) {
-            setImageSrc('');
             setErrorMessage('An error occurred while fetching the image.');
         }
     };
@@ -94,7 +84,14 @@ const MainScreen = () => {
     return (
         <div className="british-museum-search-container">
             <div className="left-side-container">
-                <h1 className='algorithm-title'>British Museum Search</h1>
+            <div className="british-museum-info">
+                    <h2>The British Museum</h2>
+                    <p>Explore the history and culture of various civilizations through artifacts and exhibitions.</p>
+                </div>
+                
+            </div>
+            <div className="right-side-container">
+            <h1 className='algorithm-title'>Enter the number of vertices and edges count</h1>
                 <form onSubmit={handleSubmit} className="form-container">
                     <div>
                         <input
@@ -132,7 +129,7 @@ const MainScreen = () => {
                                 type="number"
                                 placeholder={`Weight ${index + 1}`}
                                 value={edge.edgeWeight}
-                                disabled
+                                onChange={(e) => handleEdgeInputChange(index, 'edgeWeight', e.target.value)}
                             />
                         </div>
                     ))}
@@ -158,15 +155,10 @@ const MainScreen = () => {
                     {errorMessage && <p className="error-message">{errorMessage}</p>}
                 </form>
             </div>
-            <div className="right-side-container">
-            <div className="image-container">
-                {imageSrc && <img src={imageSrc} alt="Graph visualization" />}
-                {errorMessage && <p className="error-message">{errorMessage}</p>}
-                </div>
-            </div>
         </div>
     );
 };
+
 
 const Home = () => {
     const [showSplash, setShowSplash] = useState(true);
