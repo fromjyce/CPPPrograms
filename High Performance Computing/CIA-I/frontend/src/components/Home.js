@@ -15,7 +15,6 @@ const MainScreen = () => {
     const [numEdges, setNumEdges] = useState('');
     const [edgesInput, setEdgesInput] = useState([]);
     const [initialVertex, setInitialVertex] = useState('');
-    const [terminalVertex, setTerminalVertex] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [algorithmName] = useState('british_museum_search');
 
@@ -42,7 +41,7 @@ const MainScreen = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrorMessage('');
-        if (!numVertices || !numEdges || !initialVertex || !terminalVertex) {
+        if (!numVertices || !numEdges || !initialVertex) {
             setErrorMessage('Please fill in all the input fields before submitting.');
             return;
         }
@@ -52,8 +51,8 @@ const MainScreen = () => {
             return;
         }
 
-        if (initialVertex < 0 || terminalVertex < 0) {
-            setErrorMessage('Initial and terminal vertices cannot be negative.');
+        if (initialVertex < 0) {
+            setErrorMessage('Initial vertex cannot be negative.');
             return;
         }
 
@@ -72,7 +71,6 @@ const MainScreen = () => {
             vertices: numVertices,
             edges: numEdges,
             initial_vertex: initialVertex,
-            terminal_vertex: terminalVertex,
         };
 
         edgesInput.forEach((edge, i) => {
@@ -133,7 +131,7 @@ const MainScreen = () => {
                     </div>
                     {numEdges > 0 && (
                         <>
-                            <p className='enter-title'>Enter Start Vertex, End Vertex and Edge Weight for each Edge</p>
+                            <p className='enter-title'>Enter Start Vertex, End Vertex, and Edge Weight for each Edge</p>
                             {edgesInput.map((edge, index) => (
                                 <div key={index} style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
                                     <input
@@ -160,7 +158,7 @@ const MainScreen = () => {
                     )}
                     {numEdges > 0 && (
                         <>
-                            <p className='enter-title'>Enter the Initial and Terminal vertices</p>
+                            <p className='enter-title'>Enter the Initial Vertex</p>
                             <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
                                 <input
                                     type="text"
@@ -168,13 +166,6 @@ const MainScreen = () => {
                                     placeholder="Initial vertex"
                                     value={initialVertex}
                                     onChange={(e) => setInitialVertex(e.target.value)}
-                                />
-                                <input
-                                    type="text"
-                                    name="terminal_vertex"
-                                    placeholder="Terminal vertex"
-                                    value={terminalVertex}
-                                    onChange={(e) => setTerminalVertex(e.target.value)}
                                 />
                             </div>
                         </>
