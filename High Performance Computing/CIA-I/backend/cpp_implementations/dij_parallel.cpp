@@ -38,25 +38,32 @@ void dijkstra(const map<T, vector<pair<T, int>>>& graph, const T& startNode) {
     }
     
     dist[startNode] = 0;
+    
     while (!nodes.empty()) {
         T u = minDistance<T>(dist, nodes);
         nodes.erase(remove(nodes.begin(), nodes.end(), u), nodes.end());
 
-        #pragma omp parallel for
-        for (size_t i = 0; i < graph.at(u).size(); ++i) {
-            T v = graph.at(u)[i].first;
-            int weight = graph.at(u)[i].second;
-            if (dist[u] != numeric_limits<int>::max() && dist[u] + weight < dist[v]) {
-                #pragma omp critical
-                {
-                    if (dist[u] + weight < dist[v]) {
-                        dist[v] = dist[u] + weight;
-                        prev[v] = u;
+        #pragma omp parallel
+        {
+            #pragma omp for schedule(dynamic, 1)
+            for (size_t i = 0; i < graph.at(u).size(); ++i) {
+                T v = graph.at(u)[i].first;
+                int weight = graph.at(u)[i].second;
+                int newDist;
+                if (dist[u] != numeric_limits<int>::max()) {
+                    newDist = dist[u] + weight;
+                    #pragma omp critical
+                    {
+                        if (newDist < dist[v]) {
+                            dist[v] = newDist;
+                            prev[v] = u;
+                        }
                     }
                 }
             }
         }
     }
+    
     for (const auto& pair : dist) {
         cout << "Distance from " << startNode << " to " << pair.first << " is " << pair.second << endl;
     }
