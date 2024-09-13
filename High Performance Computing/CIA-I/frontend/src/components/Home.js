@@ -75,17 +75,16 @@ const MainScreen = () => {
             }
 
             const data = await response.json();
-            // Handle response data as needed
         } catch (error) {
             setErrorMessage('An error occurred while fetching the image.');
         }
     };
 
     return (
-        <div className="british-museum-search-container">
+        <div className="dijkstra-container">
             <div className="left-side-container">
-            <div className="british-museum-info">
-                    <h2>The British Museum</h2>
+            <div className="dijkstra-info">
+                    <h2>Dijkstra's Algorithm</h2>
                     <p>Explore the history and culture of various civilizations through artifacts and exhibitions.</p>
                 </div>
                 
