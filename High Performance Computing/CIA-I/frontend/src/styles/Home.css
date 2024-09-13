@@ -119,6 +119,14 @@ html, body {
     flex: 1;
 }
 
+.error-message {
+    font-family: "Josefin Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 350;
+    font-style: normal;
+    color: #C60C30;
+}
+
 .image-container {
     max-width: 100%;
     height: auto;
