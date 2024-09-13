@@ -84,13 +84,13 @@ const MainScreen = () => {
         <div className="dijkstra-container">
             <div className="left-side-container">
             <div className="dijkstra-info">
-                    <h2>Dijkstra's Algorithm</h2>
-                    <p>Explore the history and culture of various civilizations through artifacts and exhibitions.</p>
+                    <h1 className='algorithm-info-title'><b>Dijkstra's Algorithm</b></h1>
+                    <p className='algorithm-info-message'>A Graph algorithm that finds the shortest path from a <strong>source vertex</strong> to all other vertices in the Graph (single source shortest path). It is a type of Greedy Algorithm that only works on Weighted Graphs having positive weights. The time complexity of Dijkstra's Algorithm is <strong>O(V<sup>2</sup>)</strong> with the help of the adjacency matrix representation of the graph.</p>
                 </div>
                 
             </div>
             <div className="right-side-container">
-            <h1 className='algorithm-title'>Enter the number of vertices and edges count</h1>
+            <h3 className='algorithm-title'>Enter the Number of Vertices and Edges</h3>
                 <form onSubmit={handleSubmit} className="form-container">
                     <div>
                         <input
@@ -110,6 +110,9 @@ const MainScreen = () => {
                             onChange={handleEdgesChange}
                         />
                     </div>
+                    {numEdges > 0 && (
+    <>
+     <p className='enter-title'>Enter Start Vertex, End Vertex and Edge Weight for each Edge</p>
                     {edgesInput.map((edge, index) => (
                         <div key={index} style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
                             <input
@@ -132,24 +135,29 @@ const MainScreen = () => {
                             />
                         </div>
                     ))}
+                    </>
+)}
                     {numEdges > 0 && (
-                        <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
-                            <input
-                                type="text"
-                                name="initial_vertex"
-                                placeholder="Initial vertex"
-                                value={initialVertex}
-                                onChange={(e) => setInitialVertex(e.target.value)}
-                            />
-                            <input
-                                type="text"
-                                name="terminal_vertex"
-                                placeholder="Terminal vertex"
-                                value={terminalVertex}
-                                onChange={(e) => setTerminalVertex(e.target.value)}
-                            />
-                        </div>
-                    )}
+    <>
+        <p className='enter-title'>Enter the Initial and Terminal vertices</p>
+        <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+            <input
+                type="text"
+                name="initial_vertex"
+                placeholder="Initial vertex"
+                value={initialVertex}
+                onChange={(e) => setInitialVertex(e.target.value)}
+            />
+            <input
+                type="text"
+                name="terminal_vertex"
+                placeholder="Terminal vertex"
+                value={terminalVertex}
+                onChange={(e) => setTerminalVertex(e.target.value)}
+            />
+        </div>
+    </>
+)}
                     <button type="submit">Submit</button>
                     {errorMessage && <p className="error-message">{errorMessage}</p>}
                 </form>
