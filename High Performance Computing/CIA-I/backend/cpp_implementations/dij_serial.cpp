@@ -70,8 +70,8 @@ int main() {
     dijkstra(graph, startNode);
     auto end = high_resolution_clock::now();
     
-    auto duration = duration_cast<microseconds>(end - start).count();
-    cout << "Serial version took " << duration << " microseconds." << endl;
+    chrono::duration<double, milli> duration = end - start;
+    cout << "Serial version took " << duration.count() << " milliseconds." << endl;
 
     return 0;
 }
