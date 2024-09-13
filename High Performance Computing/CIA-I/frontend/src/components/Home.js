@@ -16,7 +16,6 @@ const MainScreen = () => {
     const [edgesInput, setEdgesInput] = useState([]);
     const [initialVertex, setInitialVertex] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [algorithmName] = useState('british_museum_search');
 
     const handleEdgesChange = (e) => {
         const edges = e.target.value;
@@ -67,7 +66,6 @@ const MainScreen = () => {
         }
 
         const formDataObj = {
-            algorithm_name: algorithmName,
             vertices: numVertices,
             edges: numEdges,
             initial_vertex: initialVertex,
