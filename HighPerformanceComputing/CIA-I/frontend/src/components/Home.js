@@ -43,43 +43,44 @@ const MainScreen = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrorMessage('');
+        
         if (!numVertices || !numEdges || !initialVertex) {
             setErrorMessage('Please fill in all the input fields before submitting.');
             return;
         }
-
+    
         if (Number(numVertices) <= 0 || Number(numEdges) <= 0) {
             setErrorMessage('Number of vertices and edges must be positive.');
             return;
         }
-
+    
         if (initialVertex < 0) {
             setErrorMessage('Initial vertex cannot be negative.');
             return;
         }
-
+    
         if (edgesInput.some(edge => !edge.startVertex || !edge.endVertex)) {
             setErrorMessage('Start and end vertices for each edge cannot be empty.');
             return;
         }
-
+    
         if (edgesInput.some(edge => Number(edge.edgeWeight) < 0)) {
             setErrorMessage('Edge weights cannot be negative.');
             return;
         }
-
+    
         const formDataObj = {
             vertices: numVertices,
             edges: numEdges,
             initial_vertex: initialVertex,
         };
-
+    
         edgesInput.forEach((edge, i) => {
             formDataObj[`start_vertex_${i}`] = edge.startVertex;
             formDataObj[`end_vertex_${i}`] = edge.endVertex;
             formDataObj[`edge_weight_${i}`] = edge.edgeWeight;
         });
-
+    
         try {
             const response = await fetch('http://127.0.0.1:5000/api/graph', {
                 method: 'POST',
@@ -88,20 +89,18 @@ const MainScreen = () => {
                 },
                 body: JSON.stringify(formDataObj),
             });
-
+    
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Network response was not ok');
             }
-
+    
             const data = await response.json();
-
-            console.log(data);
-
-            navigate('/results');
+            navigate('/results', { state: data });
         } catch (error) {
-            setErrorMessage('An error occurred while submitting the data.');
+            setErrorMessage(`An error occurred while submitting the data: ${error.message}`);
         }
-    };
+    };    
 
     return (
         <div className="dijkstra-container">
