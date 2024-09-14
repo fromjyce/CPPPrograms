@@ -120,8 +120,8 @@ def process_graph():
         image = generate_image(graph)
         return jsonify({
             'image_base64': image,
-            'serial_ms': serial_ms,
             'parallel_ms': parallel_ms,
+            'serial_ms': serial_ms,
             'distances': distances
         })
 
