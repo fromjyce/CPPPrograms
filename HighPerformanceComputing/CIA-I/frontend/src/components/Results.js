@@ -8,21 +8,22 @@ const Results = () => {
 
     return (
         <div className="result-page">
-            {/* First Division: Display Image */}
             <div className="image-container">
-                <h2>Graph Visualization</h2>
+            <div className="image-title">Graph Visualization</div>
+            <div className='image-display'>
                 {image_base64 && <img src={`data:image/png;base64,${image_base64}`} alt="Graph Visualization" />}
             </div>
+            </div>
 
-            {/* Second Division: Display Distance Table */}
             <div className="distances-container">
-                <h2>Shortest Distances</h2>
+            <div className="distances-title">Shortest Distances</div>
+            <div className='table-display'>
                 {distances && (
                     <table border="1">
                         <thead>
                             <tr>
-                                <th>Vertex</th>
-                                <th>Distance</th>
+                                <th className='vertex-name'>Vertex</th>
+                                <th className='distance-name'>Distance</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,11 +37,12 @@ const Results = () => {
                     </table>
                 )}
             </div>
-
-            {/* Third Division: Display Elapsed Time */}
+            </div>
             <div className="time-container">
-                <h2>Elapsed Time</h2>
+            <div className="time-title">Elapsed Time</div>
+            <div className='time-display'>
                 <p>{dijkstra_time_ms ? `${dijkstra_time_ms} ms` : 'No data available'}</p>
+                </div>
             </div>
         </div>
     );
