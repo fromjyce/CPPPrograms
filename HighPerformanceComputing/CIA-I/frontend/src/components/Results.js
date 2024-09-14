@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 const Results = () => {
     const location = useLocation();
-    const { image_base64, distances, dijkstra_time_ms } = location.state || {};
+    const { image_base64, distances, parallel_ms, serial_ms } = location.state || {};
 
     return (
         <div className="result-page">
@@ -41,7 +41,14 @@ const Results = () => {
             <div className="time-container">
             <div className="time-title">Elapsed Time</div>
             <div className='time-display'>
-                <p>{dijkstra_time_ms ? `${dijkstra_time_ms} ms` : 'No data available'}</p>
+            <div className="time-section">
+                        <h3 className="time-heading">Serial Version Time</h3>
+                        <p>{serial_ms ? `${serial_ms} ms` : 'No data available'}</p>
+                    </div>
+                    <div className="time-section">
+                        <h3 className="time-heading">Parallel Version Time</h3>
+                        <p>{parallel_ms ? `${parallel_ms} ms` : 'No data available'}</p>
+                    </div>
                 </div>
             </div>
         </div>
