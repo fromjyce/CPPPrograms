@@ -34,7 +34,7 @@ def convert_vertex(vertex):
 def convert_instance(vertex):
     return ord(vertex) if isinstance(vertex, str) else vertex
 
-def generate_image(graph):
+def generate_image(graph, dpi=75, background_color='#0C090A'):
     G = nx.Graph()
     for node, edges in graph.items():
         for edge in edges:
@@ -42,16 +42,18 @@ def generate_image(graph):
 
     pos = nx.spring_layout(G)
 
-    nx.draw_networkx_nodes(G, pos, nodelist=G.nodes(), node_color='lightgray', node_size=700)
-    nx.draw_networkx_edges(G, pos, edgelist=G.edges(), edge_color='black')
+    fig, ax = plt.subplots()
+    ax.set_facecolor(background_color)
 
-    nx.draw_networkx_labels(G, pos, font_size=15, font_weight='bold')
+    nx.draw_networkx_nodes(G, pos, nodelist=G.nodes(), node_color='lightgray', node_size=700, ax=ax)
+    nx.draw_networkx_edges(G, pos, edgelist=G.edges(), edge_color='white', ax=ax)
+    nx.draw_networkx_labels(G, pos, font_size=20, font_weight='bold', ax=ax)
 
     edge_labels = nx.get_edge_attributes(G, 'weight')
-    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, ax=ax)
 
     img = io.BytesIO()
-    plt.savefig(img, format='png')
+    plt.savefig(img, format='png', dpi=dpi, bbox_inches='tight', pad_inches=0, facecolor=background_color)
     img.seek(0)
 
     img_base64 = base64.b64encode(img.getvalue()).decode('utf-8')
