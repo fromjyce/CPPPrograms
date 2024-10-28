@@ -43,16 +43,16 @@ void dijkstra(const map<T, vector<pair<T, int>>>& graph, const T& startNode) {
         T u = minDistance<T>(dist, nodes);
         nodes.erase(remove(nodes.begin(), nodes.end(), u), nodes.end());
 
-        #pragma omp parallel
+        #pragma omp parallel //directive begins a parallel region, allowing multiple threads to execute the loop in parallel
         {
-            #pragma omp for schedule(dynamic, 1)
+            #pragma omp for schedule(dynamic, 1) //The dynamic, 1 schedule means each thread will take one iteration of the loop at a time, dynamically allocating iterations as threads become available.
             for (size_t i = 0; i < graph.at(u).size(); ++i) {
                 T v = graph.at(u)[i].first;
                 int weight = graph.at(u)[i].second;
                 int newDist;
                 if (dist[u] != numeric_limits<int>::max()) {
                     newDist = dist[u] + weight;
-                    #pragma omp critical
+                    #pragma omp critical //Ensures only one thread at a time accesses the following code block, avoiding race conditions.
                     {
                         if (newDist < dist[v]) {
                             dist[v] = newDist;
