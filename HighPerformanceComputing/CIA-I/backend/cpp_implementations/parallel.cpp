@@ -63,6 +63,10 @@ string minDistance(const map<string, int>& dist, const vector<string>& nodes) {
 
 // Dijkstra's Algorithm - Parallel version
 void dijkstra(const map<string, vector<pair<string, int>>>& graph, const string& startNode, string& result, long long& timeTaken) {
+    // Set the number of threads (for example, 4)
+    int numThreads = 4;
+    omp_set_num_threads(numThreads);
+
     map<string, int> dist;
     map<string, string> prev;
     vector<string> nodes;
